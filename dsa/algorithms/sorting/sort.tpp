@@ -35,6 +35,32 @@ void isort(std::vector<T> &vec, const int order = utils::AscendingOrder) {
 }
 
 // Selection Sort --------------------------------------------------------------------
+template <typename T>
+requires std::copyable<T> && std::three_way_comparable<T>
+void ssort(std::vector<T> &vec, const int order = utils::AscendingOrder) {
+    if (is_sorted(vec, order))
+        return;
+
+    if (order == utils::AscendingOrder) {
+        for (size_t i{0}; i < (vec.size() - 1); ++i) {
+            size_t key_index = i;
+            for (size_t j = i + 1; j < vec.size(); ++j) {
+                if (vec[j] < vec[key_index])
+                    key_index = j;
+            }
+            std::swap(vec[i], vec[key_index]);
+        }
+    } else if (order == utils::DescendingOrder) {
+        for (size_t i{0}; i < (vec.size() - 1); ++i) {
+            size_t key_index = i;
+            for (size_t j = i + 1; j < vec.size(); ++j) {
+                if (vec[j] > vec[key_index])
+                    key_index = j;
+            }
+            std::swap(vec[i], vec[key_index]);
+        }
+    }
+}
 
 // Merge Sort ------------------------------------------------------------------------
 
