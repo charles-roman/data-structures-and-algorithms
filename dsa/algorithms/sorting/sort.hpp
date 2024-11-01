@@ -25,6 +25,9 @@ template <typename RandomIt>                // must take only random access iter
 void msort(RandomIt begin, RandomIt end);
 
 // Bubble Sort ----------------------------------------------------------------------- [O(n^2)]
+template <typename T>
+requires std::copyable<T> && std::three_way_comparable<T>
+void bubble_sort(std::vector<T> &vec, const int order = utils::AscendingOrder);
 
 // Heap Sort ------------------------------------------------------------------------- [O()]
 
