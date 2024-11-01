@@ -63,6 +63,55 @@ void ssort(std::vector<T> &vec, const int order = utils::AscendingOrder) {
 }
 
 // Merge Sort ------------------------------------------------------------------------
+template <typename RandomIt>
+static void merge(RandomIt begin, RandomIt mid, RandomIt end) {
+
+    // Copy
+    std::vector<std::iter_value_t<RandomIt>> larr(begin, mid);
+    std::vector<std::iter_value_t<RandomIt>> rarr(mid, end);
+
+    // Initialize
+    auto left = larr.begin();
+    auto right = rarr.begin();
+    auto i = begin;
+
+    // Sort
+    while ((left != larr.end()) && (right != rarr.end())) {
+        if (*left < *right) {
+            *i = std::move(*left);
+            ++left;
+        } else {
+            *i = std::move(*right);
+            ++right;
+        }
+        ++i;
+    }
+
+    while (left != larr.end()) {
+        *i = std::move(*left);
+        ++left;
+        ++i;
+    }
+
+    while (right != rarr.end()) {
+        *i = std::move(*right);
+        ++right;
+        ++i;
+    }
+
+}
+
+template <typename RandomIt>                // must take only random access iterators
+void msort(RandomIt begin, RandomIt end) {
+
+    if (begin >= end)
+        return;
+
+    auto mid = begin + ((end - begin) / 2);
+    msort(begin, mid);
+    msort((mid + 1), end);
+    merge(begin, mid, end);
+}
 
 // Bubble Sort -----------------------------------------------------------------------
 

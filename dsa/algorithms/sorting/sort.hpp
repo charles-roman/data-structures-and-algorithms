@@ -18,6 +18,11 @@ requires std::copyable<T> && std::three_way_comparable<T>
 void ssort(std::vector<T> &vec, const int order = utils::AscendingOrder);
 
 // Merge Sort ------------------------------------------------------------------------ [O(nlogn)]
+template <typename RandomIt>
+static void merge(RandomIt begin, RandomIt mid, RandomIt end);
+
+template <typename RandomIt>                // must take only random access iterators
+void msort(RandomIt begin, RandomIt end);
 
 // Bubble Sort ----------------------------------------------------------------------- [O(n^2)]
 
