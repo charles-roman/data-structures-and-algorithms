@@ -113,6 +113,27 @@ void msort(RandomIt begin, RandomIt end) {
     merge(begin, mid, end);
 }
 
+// Bubble Sort -----------------------------------------------------------------------
+template <typename T>
+requires std::copyable<T> && std::three_way_comparable<T>
+void bubble_sort(std::vector<T> &vec, const int order = utils::AscendingOrder) {
+    if (order == utils::AscendingOrder) {
+        for(size_t i{0}; i < (vec.size() - 1); ++i) {
+            for (size_t j = (vec.size() - 1); j > i; --j) {
+                if (vec[j] < vec[j - 1])
+                    std::swap(vec[j], vec[j - 1]);
+            }
+        }
+    } else if (order == utils::DescendingOrder) {
+        for(size_t i{0}; i < (vec.size() - 1); ++i) {
+            for (size_t j = (vec.size() - 1); j > i; --j) {
+                if (vec[j] > vec[j - 1])
+                    std::swap(vec[j], vec[j - 1]);
+            }
+        }
+    }
+}
+
 // Heap Sort -------------------------------------------------------------------------
 
 // Quick Sort ------------------------------------------------------------------------
