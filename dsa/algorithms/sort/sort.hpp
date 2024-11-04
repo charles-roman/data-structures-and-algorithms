@@ -12,6 +12,11 @@ template <typename T>
 requires std::copyable<T> && std::three_way_comparable<T>
 void isort(std::vector<T> &vec, const int order = utils::AscendingOrder);
 
+// Selection Sort -------------------------------------------------------------------- [O(n^2)]
+template <typename T>
+requires std::copyable<T> && std::three_way_comparable<T>
+void ssort(std::vector<T> &vec, const int order = utils::AscendingOrder);
+
 // Heap Sort ------------------------------------------------------------------------- [O()]
 
 // Quick Sort ------------------------------------------------------------------------ [O()]
