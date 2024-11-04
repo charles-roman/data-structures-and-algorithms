@@ -11,6 +11,11 @@ template <typename T>
 requires std::equality_comparable<T>
 int lsearch(const std::vector<T> &vec, const T val);
 
+// binary search (O(logn))
+template <typename T>
+requires std::equality_comparable<T>
+int bsearch(const std::vector<T> &vec, const T val);
+
 }   // namespace cra
 
 #include "search.tpp"
