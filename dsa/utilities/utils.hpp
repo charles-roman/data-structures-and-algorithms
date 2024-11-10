@@ -12,9 +12,11 @@ namespace utils {
 // ERROR HANDLING -------------------------------------------------------------------------
 enum ErrorType {
     MallocError = 0,
-    EmptyError,
+    RemoveFromEmptyError,
+    ReadFromEmptyError,
     IndexError,
-    SizeError
+    SizeDeclarationError,
+    SizeOverflowError
 };
 
 void throw_error(const std::string &func, const int err);

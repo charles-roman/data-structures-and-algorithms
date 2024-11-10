@@ -12,14 +12,20 @@ void throw_error(const std::string &func, const int err = -1) {
         case MallocError: 
             err_str = "memory allocation failure";
             break;
-        case EmptyError:
+        case RemoveFromEmptyError:
             err_str = "cannot remove element from empty object";
+            break;
+        case ReadFromEmptyError:
+            err_str = "cannot read element from empty object";
             break;
         case IndexError:
             err_str = "index out of bounds";
             break;
-        case SizeError:
+        case SizeDeclarationError:
             err_str = "improper size declaration";
+            break;
+        case SizeOverflowError:
+            err_str = "overflow occurred";
             break;
         default:
             err_str = "fatal error occurred";
