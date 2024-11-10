@@ -1,8 +1,8 @@
-#include <iostream>
-#include <memory>
-
 #ifndef PROJECT_DARRAY_HPP
 #define PROJECT_DARRAY_HPP
+
+#include <iostream>
+#include <memory>
 
 namespace crs {
 

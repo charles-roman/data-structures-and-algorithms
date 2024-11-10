@@ -1,6 +1,6 @@
 #include <iostream>
 #include "slist.hpp"
-#include "../../../utils/utils.hpp"
+#include "../../../utilities/utils.hpp"
 
 namespace crs {
 
@@ -44,7 +44,7 @@ void SList<T>::push_front(const T& value) {
 template <typename T>
 void SList<T>::pop_front() {
     if (this->empty()) // might be slightly less efficient due to derefencing, but is cleaner to read
-        throw_error(__PRETTY_FUNCTION__, utils::EmptyError);
+        throw_error(__PRETTY_FUNCTION__, utils::RemoveFromEmptyError);
 
     Node<T>* temp = head;
     head = head->get_next();
@@ -58,7 +58,7 @@ void SList<T>::pop_front() {
 template <typename T>
 const T& SList<T>::front() const {
     if (this->empty()) // might be slightly less efficient due to derefencing, but is cleaner to read
-        throw_error(__PRETTY_FUNCTION__, utils::EmptyError);
+        throw_error(__PRETTY_FUNCTION__, utils::ReadFromEmptyError);
 
     return head->get_data();
 }
@@ -84,7 +84,7 @@ void SList<T>::push_back(const T& value) {
 template <typename T>
 void SList<T>::pop_back() {
     if (this->empty()) // might be slightly less efficient due to derefencing, but is cleaner to read
-        throw_error(__PRETTY_FUNCTION__, utils::EmptyError);
+        throw_error(__PRETTY_FUNCTION__, utils::RemoveFromEmptyError);
 
     if (tail == head) {
         tail = nullptr;
@@ -105,7 +105,7 @@ void SList<T>::pop_back() {
 template <typename T>
 const T& SList<T>::back() const {
     if (this->empty()) // might be slightly less efficient due to derefencing, but is cleaner to read
-        throw_error(__PRETTY_FUNCTION__, utils::EmptyError);
+        throw_error(__PRETTY_FUNCTION__, utils::ReadFromEmptyError);
 
     return tail->get_data();
 }

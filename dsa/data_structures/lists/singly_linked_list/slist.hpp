@@ -1,7 +1,7 @@
-#include <cstddef>
-
 #ifndef PROJECT_SLIST_HPP
 #define PROJECT_SLIST_HPP
+
+#include <cstddef>
 
 namespace crs {
 

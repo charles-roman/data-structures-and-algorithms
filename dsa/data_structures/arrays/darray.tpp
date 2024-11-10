@@ -1,13 +1,13 @@
 #include <iostream>
 #include "darray.hpp"
-#include "../../utils/utils.hpp"
+#include "../../utilities/utils.hpp"
 
 namespace crs {
 
 template <typename T>
 DArray<T>::DArray(int size) {
     if (size < 0)
-        throw_error(__PRETTY_FUNCTION__, utils::SizeError);
+        throw_error(__PRETTY_FUNCTION__, utils::SizeDeclarationError);
 
     mSize = size; 
     mCapacity = size;
@@ -56,7 +56,7 @@ void DArray<T>::push_back(const T &rValue) {
 template <typename T>
 void DArray<T>::pop_back() {
     if (this->empty())
-        throw_error(__PRETTY_FUNCTION__, utils::EmptyError);
+        throw_error(__PRETTY_FUNCTION__, utils::RemoveFromEmptyError);
 
     --mSize;
 }
@@ -82,7 +82,7 @@ void DArray<T>::erase(int index) {
         throw_error(__PRETTY_FUNCTION__, utils::IndexError);
 
     if (this->empty())
-        throw_error(__PRETTY_FUNCTION__, utils::EmptyError);
+        throw_error(__PRETTY_FUNCTION__, utils::RemoveFromEmptyError);
 
     for (size_t i = index; i < (mSize - 1); ++i) {
         pArr[i] = pArr[i+1];
