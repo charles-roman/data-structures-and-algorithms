@@ -1,11 +1,11 @@
+#ifndef UTILS_HPP
+#define UTILS_HPP
+
 #include <iostream>
 #include <string>
 #include <iterator>
 #include <vector>
 #include <algorithm>
-
-#ifndef UTILS_HPP
-#define UTILS_HPP
 
 namespace utils {
 
