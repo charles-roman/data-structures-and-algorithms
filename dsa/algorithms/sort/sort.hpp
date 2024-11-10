@@ -29,7 +29,22 @@ template <typename T>
 requires std::copyable<T> && std::three_way_comparable<T>
 void bubble_sort(std::vector<T> &vec, const int order = utils::AscendingOrder);
 
-// Heap Sort ------------------------------------------------------------------------- [O()]
+// Heap Sort ------------------------------------------------------------------------- [O(nlogn)]
+static int left(const int i);
+
+static int right(const int i);
+
+template <typename T>
+requires std::copyable<T> && std::three_way_comparable<T>
+static void heapify(std::vector<T> &vec, const int size, const int i);
+
+template <typename T>
+requires std::copyable<T> && std::three_way_comparable<T>
+static void build_heap(std::vector<T> &vec);
+
+template <typename T>
+requires std::copyable<T> && std::three_way_comparable<T>
+void heap_sort(std::vector<T> &vec);
 
 // Quick Sort ------------------------------------------------------------------------ [O()]
 

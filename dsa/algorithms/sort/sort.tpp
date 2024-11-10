@@ -1,3 +1,4 @@
+#include <cmath>
 #include <vector>
 #include <concepts>
 #include "../../utilities/utils.hpp"
@@ -10,7 +11,7 @@ namespace cra {
 // Insertion Sort --------------------------------------------------------------------
 template <typename T>
 requires std::copyable<T> && std::three_way_comparable<T>
-void isort(std::vector<T> &vec, const int order = utils::AscendingOrder) {
+void isort(std::vector<T> &vec, const int order) {
     if (order == utils::AscendingOrder) {
         for (int i{1}; i < vec.size(); ++i) {
             auto key = vec[i];
@@ -37,7 +38,7 @@ void isort(std::vector<T> &vec, const int order = utils::AscendingOrder) {
 // Selection Sort --------------------------------------------------------------------
 template <typename T>
 requires std::copyable<T> && std::three_way_comparable<T>
-void ssort(std::vector<T> &vec, const int order = utils::AscendingOrder) {
+void ssort(std::vector<T> &vec, const int order) {
     if (is_sorted(vec, order))
         return;
 
@@ -116,7 +117,7 @@ void msort(RandomIt begin, RandomIt end) {
 // Bubble Sort -----------------------------------------------------------------------
 template <typename T>
 requires std::copyable<T> && std::three_way_comparable<T>
-void bubble_sort(std::vector<T> &vec, const int order = utils::AscendingOrder) {
+void bubble_sort(std::vector<T> &vec, const int order) {
     if (order == utils::AscendingOrder) {
         for(size_t i{0}; i < (vec.size() - 1); ++i) {
             for (size_t j = (vec.size() - 1); j > i; --j) {
@@ -135,6 +136,56 @@ void bubble_sort(std::vector<T> &vec, const int order = utils::AscendingOrder) {
 }
 
 // Heap Sort -------------------------------------------------------------------------
+static int left(const int i) {
+    return (2 * i + 1);
+}
+
+static int right(const int i) {
+    return (2 * i + 2);
+}
+
+template <typename T>
+requires std::copyable<T> && std::three_way_comparable<T>
+static void heapify(std::vector<T> &vec, const int size, const int i) {
+    int l = left(i);
+    int r = right(i);
+    int largest;
+
+    if ((l < size) && (vec[l] > vec[i])) {
+        largest = l;
+    } else {
+        largest = i;
+    }
+
+    if ((r < size) && (vec[r] > vec[largest])) {
+        largest = r;
+    }
+
+    if (largest != i) {
+        std::swap(vec[i], vec[largest]);
+        heapify(vec, size, largest);
+    }
+}
+
+template <typename T>
+requires std::copyable<T> && std::three_way_comparable<T>
+static void build_heap(std::vector<T> &vec) {
+    for (int i = std::floor(vec.size() / 2.0f) - 1; i >= 0; --i) {
+        heapify(vec, vec.size(), i);
+    }
+}
+
+template <typename T>
+requires std::copyable<T> && std::three_way_comparable<T>
+void heap_sort(std::vector<T> &vec) {
+    build_heap(vec);
+    int size = vec.size();
+    for (int i = vec.size() - 1; i > 0; --i) {
+        std::swap(vec[0], vec[i]);
+        --size;
+        heapify(vec, size, 0);
+    }
+}
 
 // Quick Sort ------------------------------------------------------------------------
 
