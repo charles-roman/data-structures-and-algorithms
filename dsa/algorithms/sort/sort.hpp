@@ -10,19 +10,19 @@ namespace cra {
 // Insertion Sort -------------------------------------------------------------------- [O(n^2)]
 template <typename T>
 requires std::copyable<T> && std::three_way_comparable<T>
-void isort(std::vector<T> &vec, const int order = utils::AscendingOrder);
+void insertion_sort(std::vector<T> &vec, const int order = utils::AscendingOrder);
 
 // Selection Sort -------------------------------------------------------------------- [O(n^2)]
 template <typename T>
 requires std::copyable<T> && std::three_way_comparable<T>
-void ssort(std::vector<T> &vec, const int order = utils::AscendingOrder);
+void selection_sort(std::vector<T> &vec, const int order = utils::AscendingOrder);
 
 // Merge Sort ------------------------------------------------------------------------ [O(nlogn)]
 template <typename RandomIt>
 static void merge(RandomIt begin, RandomIt mid, RandomIt end);
 
 template <typename RandomIt>                // must take only random access iterators
-void msort(RandomIt begin, RandomIt end);
+void merge_sort(RandomIt begin, RandomIt end);
 
 // Bubble Sort ----------------------------------------------------------------------- [O(n^2)]
 template <typename T>
@@ -46,13 +46,39 @@ template <typename T>
 requires std::copyable<T> && std::three_way_comparable<T>
 void heap_sort(std::vector<T> &vec);
 
-// Quick Sort ------------------------------------------------------------------------ [O()]
+// Quick Sort ------------------------------------------------------------------------ [O(nlogn)]
+static int random(int low, int high);
+
+template <typename RandomIt>
+static RandomIt median_of_3(RandomIt A, RandomIt B, RandomIt C);
+
+template <typename RandomIt>
+static RandomIt randomized_partition(RandomIt begin, RandomIt end);
+
+template <typename RandomIt>
+void quick_sort(RandomIt begin, RandomIt end);
 
 // Counting Sort --------------------------------------------------------------------- [O()]
 
 // Radix Sort ------------------------------------------------------------------------ [O()]
 
 // Bucket Sort ----------------------------------------------------------------------- [O()]
+
+// More Sorting
+/* 
+    Tim Sort
+    Tree Sort
+    Shell Sort
+    Cube Sort
+    Fuzzy Sort
+    Introsort
+*/
+
+/*  
+    we can coarsen sorting algs like merge_sort and quick_sort by modifying the base case
+    to call insertion_sort once the number of elements becomes low enough; benchmarking
+    run times would be neccessary to decide when this threshold is appropriately met
+*/
 
 }   // cra namespace (c. roman algorithms [library])
 

@@ -14,12 +14,12 @@ int main (int argc, char* argv[]) {
     std::cout << "Original Array:" << std::endl;
     utils::print(vec2);
 
-    cra::isort(vec2);
+    cra::insertion_sort(vec2);
 
     std::cout << "Sorted Array (Ascending):" << std::endl;
     utils::print(vec2);
 
-    cra::isort(vec2, utils::DescendingOrder);
+    cra::insertion_sort(vec2, utils::DescendingOrder);
 
     std::cout << "Sorted Array (Descending):" << std::endl;
     utils::print(vec2);
@@ -34,12 +34,12 @@ int main (int argc, char* argv[]) {
     std::cout << "Original Array:" << std::endl;
     utils::print(vec2);
 
-    cra::ssort(vec2);
+    cra::selection_sort(vec2);
 
     std::cout << "Sorted Array (Ascending):" << std::endl;
     utils::print(vec2);
 
-    cra::ssort(vec2, utils::DescendingOrder);
+    cra::selection_sort(vec2, utils::DescendingOrder);
 
     std::cout << "Sorted Array (Descending):" << std::endl;
     utils::print(vec2);
@@ -55,7 +55,7 @@ int main (int argc, char* argv[]) {
     std::cout << "Original Array:" << std::endl;
     utils::print(vec2);
 
-    cra::msort(vec2.begin(), vec2.end());
+    cra::merge_sort(vec2.begin(), vec2.end());
 
     std::cout << "Sorted Array (Ascending):" << std::endl;
     utils::print(vec2);
@@ -83,6 +83,7 @@ int main (int argc, char* argv[]) {
     std::cout << "--------------------------" << std::endl;
     */
 
+   /*
     std::vector<int> vec2 = vec;
     
     std::cout << "HEAP SORT" << std::endl;
@@ -94,7 +95,20 @@ int main (int argc, char* argv[]) {
 
     std::cout << "Sorted Array (Ascending):" << std::endl;
     utils::print(vec2);
+    std::cout << "--------------------------" << std::endl;
+    */
 
+    std::vector<int> vec2 = vec;
+    
+    std::cout << "QUICK SORT" << std::endl;
+    std::cout << "--------------------------" << std::endl;
+    std::cout << "Original Array:" << std::endl;
+    utils::print(vec2);
+
+    cra::quick_sort(vec2.begin(), vec2.end());
+
+    std::cout << "Sorted Array (Ascending):" << std::endl;
+    utils::print(vec2);
     std::cout << "--------------------------" << std::endl;
 
 }

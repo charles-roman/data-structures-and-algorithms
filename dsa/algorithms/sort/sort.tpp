@@ -1,4 +1,6 @@
 #include <cmath>
+#include <cstdlib>
+#include <ctime>
 #include <vector>
 #include <concepts>
 #include "../../utilities/utils.hpp"
@@ -11,7 +13,7 @@ namespace cra {
 // Insertion Sort --------------------------------------------------------------------
 template <typename T>
 requires std::copyable<T> && std::three_way_comparable<T>
-void isort(std::vector<T> &vec, const int order) {
+void insertion_sort(std::vector<T> &vec, const int order) {
     if (order == utils::AscendingOrder) {
         for (int i{1}; i < vec.size(); ++i) {
             auto key = vec[i];
@@ -38,7 +40,7 @@ void isort(std::vector<T> &vec, const int order) {
 // Selection Sort --------------------------------------------------------------------
 template <typename T>
 requires std::copyable<T> && std::three_way_comparable<T>
-void ssort(std::vector<T> &vec, const int order) {
+void selection_sort(std::vector<T> &vec, const int order) {
     if (is_sorted(vec, order))
         return;
 
@@ -103,14 +105,14 @@ static void merge(RandomIt begin, RandomIt mid, RandomIt end) {
 }
 
 template <typename RandomIt>                // must take only random access iterators
-void msort(RandomIt begin, RandomIt end) {
+void merge_sort(RandomIt begin, RandomIt end) {
 
     if (begin >= end)
         return;
 
     auto mid = begin + ((end - begin) / 2);
-    msort(begin, mid);
-    msort((mid + 1), end);
+    merge_sort(begin, mid);
+    merge_sort((mid + 1), end);
     merge(begin, mid, end);
 }
 
@@ -188,6 +190,58 @@ void heap_sort(std::vector<T> &vec) {
 }
 
 // Quick Sort ------------------------------------------------------------------------
+static int random(int low, int high) {
+    srand(time(0));
+    return rand() % (high - low) + low;
+}
+
+template <typename RandomIt>
+static RandomIt median_of_3(RandomIt A, RandomIt B, RandomIt C) {
+    auto a = *A;
+    auto b = *B;
+    auto c = *C;
+
+    auto median = (b > a) == (a > c) ? a : (b > a) != (b > c) ? b : c;
+    
+    if (a == median) {
+        return A;
+    } else if (b == median) {
+        return B;
+    } else {
+        return C;
+    }
+}
+
+template <typename RandomIt>
+static RandomIt randomized_partition(RandomIt begin, RandomIt end) {
+    int size = end - begin;
+    int i = random(0, size);
+    int j = random(0, size);
+    int k = random(0, size);
+
+    auto pivot = median_of_3((begin + i), (begin + j), (begin + k));
+    std::swap(*pivot, *(end - 1));
+    pivot = (end - 1);
+
+    RandomIt it1 = begin - 1;
+    for (RandomIt it2 = begin; it2 != pivot; ++it2) {
+        if (*it2 <= *pivot) {
+            ++it1;
+            std::swap(*it1, *it2);
+        }
+    }
+    std::swap(*(it1 + 1), *pivot);
+    return (it1 + 1);
+}
+
+template <typename RandomIt>
+void quick_sort(RandomIt begin, RandomIt end) {
+    if (begin < end) {
+        auto pivot = randomized_partition(begin, end);
+        quick_sort(begin, pivot - 1);
+        quick_sort(pivot + 1, end);
+    }
+}
 
 // Counting Sort ---------------------------------------------------------------------
 
