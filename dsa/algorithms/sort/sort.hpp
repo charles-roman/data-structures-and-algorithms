@@ -58,7 +58,10 @@ static RandomIt randomized_partition(RandomIt begin, RandomIt end);
 template <typename RandomIt>
 void quick_sort(RandomIt begin, RandomIt end);
 
-// Counting Sort --------------------------------------------------------------------- [O()]
+// Counting Sort --------------------------------------------------------------------- [O(n+k)]
+template <typename T>
+requires std::unsigned_integral<T>
+void counting_sort(std::vector<T> &input, T k = 0);
 
 // Radix Sort ------------------------------------------------------------------------ [O()]
 

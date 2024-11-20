@@ -244,6 +244,38 @@ void quick_sort(RandomIt begin, RandomIt end) {
 }
 
 // Counting Sort ---------------------------------------------------------------------
+template <typename T>
+requires std::unsigned_integral<T>
+void counting_sort(std::vector<T> &input, T k) {
+    if (k == 0)
+        k = *std::max_element(input.begin(), input.end());
+
+    std::vector<T> counter(k + 1, 0);
+    std::vector<T> output(input.size());
+
+    for (size_t i{0}; i < input.size(); ++i) {
+        ++counter[input[i]];
+    }
+
+    for (T i = 1; i <= k; ++i) {
+        counter[i] += counter[i - 1];
+    }
+
+    for (size_t i = input.size() - 1; i != -1; --i) {
+        T pos = counter[input[i]] - 1;
+        output[pos] = input[i];
+        --counter[input[i]];
+    }
+
+    input = output;
+    
+}
+
+/*
+    counting sort can also work for floating point values. it only works well for
+    floating point values that have a low number of digits to the right of the
+    decimal point
+*/
 
 // Radix Sort ------------------------------------------------------------------------
 
