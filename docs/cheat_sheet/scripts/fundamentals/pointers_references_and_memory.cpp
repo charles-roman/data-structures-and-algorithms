@@ -70,7 +70,7 @@
     /* Pointers vs References
         pointers:
         1) must go through dereference operator to read/write through pointed to value
-        2) can be chnaged to point elsewhere
+        2) can be changed to point elsewhere
         3) can be declared unitialized (w/ garbage address)
 
         references:

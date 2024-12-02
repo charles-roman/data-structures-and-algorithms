@@ -34,6 +34,7 @@
                 type my_function(type param);	        // declare member function
 
                 type my_variable;                       // declare data member (class attribute)
+                type *my_data;
 
             protected:				                    // access specifier (scope is within class and subclasses) 
 
@@ -57,26 +58,28 @@
             called by compiler everytime an object of the class is instantiated 
         */
 
-        MyClass::MyClass() {                       // default constructor (provided by compiler implicitly if NO constructors defined)
-            // constructor code                                        // (best practice to define explicitly)                      
+        MyClass::MyClass() {                            // default constructor (provided by compiler implicitly if NO constructors defined)
+            // constructor code                                             // (best practice to define explicitly)                      
         }                                                            
 
-        MyClass::MyClass(param, ...)               // parameterized constructor (can provide default args to params so it acts as default constructor as well)
-            : my_attribute(param)... {}            // member initializer list (must use for const and reference attributes!)...
-                                                   // ...also best to use for init class members (especially for classes with heavy constructors)
+        MyClass::MyClass(param, ...)                    // parameterized constructor (can provide default args to params so it acts as default constructor as well)
+            : my_attribute(param)... {}                 // member initializer list (must use for const and reference attributes!)...
+                                                        // ...also best to use for init class members (especially for classes with heavy constructors)
 
-        MyClass::MyClass(param, ...) {	           // alternate definition of parameterized constructor 
+        MyClass::MyClass(param, ...) {	                // alternate definition of parameterized constructor 
             my_attribute = param; 
         }
 
-        MyClass::MyClass(const MyClass& myObj) {   // copy constructor (compiler creates implicit definition if no explicit definition)
-            ...                                    // ... typically needed when an object contains pointers or non-shareable refs
-            my_variable = myObj.my_variable;
+        MyClass::MyClass(const MyClass& myObj) {        // copy constructor (compiler creates implicit definition if no explicit definition)
+            ...                                         // ... typically needed when an object contains pointers or non-shareable refs
+            my_data = new type;
+            *my_data = *myObj.my_data;
         }
 
-        MyClass::MyClass(MyClass&& myObj) {        // move constructor (compiler creates implicit definition if no explicit definition)
-            ...                                    // ... useful for efficiently transferring ownership of resources (less overhead)
-            my_variable = myObj.my_variable; 
+        MyClass::MyClass(MyClass&& myObj) noexcept {    // move constructor (compiler creates implicit definition if no explicit definition)
+            ...                                         // ... useful for efficiently transferring ownership of resources (less overhead)
+            my_data = myObj.my_data; 
+            myObj.my_data = nullptr;
         }
 
     // Destructors (in .cpp file)
@@ -102,18 +105,25 @@
         }
 
     // Operators (in .cpp file)
-        MyClass& MyClass::operator=(MyClass& oldObj) {           // copy assignment operator
-            //
-        }
-
-        MyClass& MyClass::operator=(MyClass&& myObj) noexcept {  // move assignment operator (noexcept is optional)
-            delete my_variable;
-            my_variable = myObj.my_variable;
-            myObj.my_variable = nullptr;
+        MyClass& MyClass::operator=(const MyClass& myObj) {         // copy assignment operator
+            if (this != &myObj) {
+                delete my_data;
+                my_data = new type;
+                *my_data = *myObj.my_data;
+            }
             return *this;
         }
 
-                                                                 // other operators (ex.)
+        MyClass& MyClass::operator=(MyClass&& myObj) noexcept {     // move assignment operator
+            if (this != &myObj) {
+                delete my_data;
+                my_data = myObj.my_data;
+                myObj.my_data = nullptr;
+            }
+            return *this;
+        }
+
+        type MyClass::operator[](type param) { }                    // other operators (ex. w/ [])
 
     /* 
         Rule of 5: if one of the following special functions is created in a class, all should be created in the class 
@@ -123,7 +133,7 @@
     /*
         Compiler creates implicit definitions of: 
             Default Constructor, Copy Constructor, Move Constructor, Assignment Operator, Destructor
-        if not defined explicitly
+            if not defined explicitly
     */
 
     // Defining Member Functions (in .cpp file)
@@ -142,7 +152,18 @@
     // Defining SubClass
         class SubClass: public BaseClass {	        // Inheritance (subclass or derived class inherits from superclass or baseclass) 
             // class code 
-        }; 
+        };
+
+    // Function Specifiers
+        const type my_function() {}         // ensures the returned value cannot be modified (can be useful for ptrs/refs) 
+        type my_function() const {}         // guarantees function will not modify state of object (non-static data members)
+        virtual type my_function() {}       // declares member function as virtual, allowing it to be overriden in derived classes
+        type my_function() override {}      // specifies that a member function is intended to override a base class function
+        virtual type my_function() final {} // prevents a virtual function from being overridden in derived classes
+        explicit my_function() {}           // specifies that a constructor or conversion operator should not be implicitly invoked
+        static type my_function() {}        // specifies that a member fxn doesn't operate on instance of class & can be called w/out obj
+        constexpr type my_function() {}     // indicates that the func can produce a constant expression & can be evaluated @ compile time
+        friend type my_function() {}        // allows a non-member function to access the private and protected members of the class 
 
     // Create and Manipulate Objects (and Class Attributes)
         MyClass myObject;		                 // instantiate object of class (must have valid default constructor!)
@@ -160,7 +181,7 @@
 
         myObject.~MyClass();                     // destroy object 
 
-    // OOP Concepts
+    // OOP Core Concepts
         /*
             Encapsulation – bundling related data/functions within limited data scope (consolidate) 
 

@@ -23,21 +23,12 @@
 
     type my_function(type my_array[]) {/*function def*/}    // passing arrays by value will decay to pointers (my_array[] = *my_array)
                                                             // (can avoid by passing by ref)
-
-    // Function Specifiers
-    inline type my_function() {}        // instructs compiler to isnert fxn body where called; can be beneficial for speed (sometimes)
-    virtual type my_function() {}       // declares member function as virtual, allowing it to be overriden in derived classes
-    type my_function() override {}      // specifies that a member function is intended to override a base class function
-    virtual type my_function() final {} // prevents a virtual function from being overridden in derived classes
-    explicit my_function() {}           // specifies that a constructor or conversion operator should not be implicitly invoked
-    static type my_function() {}        // specifies that a member fxn doesn't operate on instance of class & can be called w/out obj
-    constexpr type my_function() {}     // indicates that the func can produce a constant expression & can be evaluated @ compile time
-    friend type my_function() {}        // allows a non-member function to access the private and protected members of the class
-
+                                                            
     // Passing Arguments
     my_function(arg1, arg2);                    // passing args to function
     my_variable = my_function(*arg1, &arg2);    // passing args and storing result in variable
-                                                // args passed to func can be literals, variables, pointers, addresses, references, etc.
+                                                // args passed to func can be literals, variables, pointers, addresses, references, objects...
+                                                // ...even other functions; functions can be passed by pointer, as functors, or lambda functions
 
     // Passing Arguments
     /* 
@@ -71,3 +62,16 @@
         However, generally won't serve much purpose due to Copy Elision
         CAREFUL not to return a reference to a local variable (because it goes out of scope)
     */
+
+    // Function Specifiers
+    inline type my_function() {}        // instructs compiler to insert fxn body where called; can be beneficial for speed (sometimes)
+    static type my_function() {}        // restricts scope of function to same translation unit
+    const type my_function() {}         // ensures the returned value cannot be modified (can be useful for ptrs/refs)
+    constexpr type my_function() {}     // indicates that the func can produce a constant expression & can be evaluated @ compile time
+
+        // Additional Specifiers for member functions (see "Classes and Objects")
+        virtual
+        override
+        final
+        explicit
+        friend
