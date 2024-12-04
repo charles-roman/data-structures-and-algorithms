@@ -7,65 +7,80 @@
 
 namespace cra {
 
-// Insertion Sort -------------------------------------------------------------------- [O(n^2)]
-template <typename T>
-requires std::copyable<T> && std::three_way_comparable<T>
-void insertion_sort(std::vector<T> &vec, const int order = utils::AscendingOrder);
+template<typename T>
+concept CopyableAndTotallyOrdered = std::copyable<T> && std::totally_ordered<T>;
 
-// Selection Sort -------------------------------------------------------------------- [O(n^2)]
-template <typename T>
-requires std::copyable<T> && std::three_way_comparable<T>
-void selection_sort(std::vector<T> &vec, const int order = utils::AscendingOrder);
+template<typename It>
+concept ItValCopyableAndTotallyOrdered = std::copyable<std::iter_value_t<It>> &&
+                                         std::totally_ordered<std::iter_value_t<It>>;
 
-// Merge Sort ------------------------------------------------------------------------ [O(nlogn)]
+// Insertion Sort ------------------------------------------------------------------------ [O(n^2)]
+template <CopyableAndTotallyOrdered T, typename Compare = std::less<T>>
+void insertion_sort(std::vector<T> &vec, Compare comp = Compare());
+
+// Selection Sort ------------------------------------------------------------------------ [O(n^2)]
+template <CopyableAndTotallyOrdered T, typename Compare = std::less<T>>
+void selection_sort(std::vector<T> &vec, Compare comp = Compare());
+
+// Bubble Sort --------------------------------------------------------------------------- [O(n^2)]
+template <CopyableAndTotallyOrdered T, typename Compare = std::less<T>>
+void bubble_sort(std::vector<T> &vec, Compare comp = Compare());
+
+// Merge Sort ---------------------------------------------------------------------------- [O(nlogn)]
+template <typename RandomIt, typename Compare>
+static void merge(RandomIt begin, RandomIt mid, RandomIt end, Compare comp);
+
+template <ItValCopyableAndTotallyOrdered RandomIt, 
+            typename Compare = std::less_equal<std::iter_value_t<RandomIt>>>
+void merge_sort(RandomIt begin, RandomIt end, Compare comp = Compare());      // end iterator must point to last element 
+
+// Heap Sort ----------------------------------------------------------------------------- [O(nlogn)]
+static size_t left(const size_t i);
+
+static size_t right(const size_t i);
+
+template <typename T, typename Compare>
+static void heapify(std::vector<T> &vec, const size_t size, const size_t i, Compare comp);
+
+template <typename T, typename Compare>
+static void build_heap(std::vector<T> &vec, Compare comp);
+
+template <CopyableAndTotallyOrdered T, typename Compare = std::less<T>>
+void heap_sort(std::vector<T> &vec, Compare comp = Compare());
+
+// Quick Sort ---------------------------------------------------------------------------- [O(nlogn)]
+static int random(const int low, const int high);
+
+template <typename T>
+static T median_of_3(T a, T b, T c);
+
 template <typename RandomIt>
-static void merge(RandomIt begin, RandomIt mid, RandomIt end);
+static RandomIt random_pivot(RandomIt begin, RandomIt end);
 
-template <typename RandomIt>                // must take only random access iterators
-void merge_sort(RandomIt begin, RandomIt end);
+template <typename RandomIt, typename Compare>
+static RandomIt randomized_partition(RandomIt begin, RandomIt end, Compare comp);
 
-// Bubble Sort ----------------------------------------------------------------------- [O(n^2)]
-template <typename T>
-requires std::copyable<T> && std::three_way_comparable<T>
-void bubble_sort(std::vector<T> &vec, const int order = utils::AscendingOrder);
+template <ItValCopyableAndTotallyOrdered RandomIt, 
+            typename Compare = std::less_equal<std::iter_value_t<RandomIt>>>
+void quick_sort(RandomIt begin, RandomIt end, Compare comp = Compare());
 
-// Heap Sort ------------------------------------------------------------------------- [O(nlogn)]
-static int left(const int i);
-
-static int right(const int i);
-
-template <typename T>
-requires std::copyable<T> && std::three_way_comparable<T>
-static void heapify(std::vector<T> &vec, const int size, const int i);
-
-template <typename T>
-requires std::copyable<T> && std::three_way_comparable<T>
-static void build_heap(std::vector<T> &vec);
-
-template <typename T>
-requires std::copyable<T> && std::three_way_comparable<T>
-void heap_sort(std::vector<T> &vec);
-
-// Quick Sort ------------------------------------------------------------------------ [O(nlogn)]
-static int random(int low, int high);
-
-template <typename RandomIt>
-static RandomIt median_of_3(RandomIt A, RandomIt B, RandomIt C);
-
-template <typename RandomIt>
-static RandomIt randomized_partition(RandomIt begin, RandomIt end);
-
-template <typename RandomIt>
-void quick_sort(RandomIt begin, RandomIt end);
-
-// Counting Sort --------------------------------------------------------------------- [O(n+k)]
+// Counting Sort ------------------------------------------------------------------------- [O(n+k)] (k = max - min)
 template <typename T>
 requires std::unsigned_integral<T>
-void counting_sort(std::vector<T> &input, T k = 0);
+void counting_sort(std::vector<T> &input, size_t min = 0, size_t max = 0);  
 
-// Radix Sort ------------------------------------------------------------------------ [O()]
+// Radix Sort ---------------------------------------------------------------------------- [O(d(n+k))]
+template <typename T>
+static T digits(T num);
 
-// Bucket Sort ----------------------------------------------------------------------- [O()]
+template <typename T>
+static void counting_sort_by_digit(std::vector<T> &input, T k, T div);
+
+template <typename T>
+requires std::unsigned_integral<T>
+void radix_sort(std::vector<T> &input, T d = 0);
+
+// Bucket Sort --------------------------------------------------------------------------- [O()]
 
 // More Sorting
 /* 
@@ -73,8 +88,12 @@ void counting_sort(std::vector<T> &input, T k = 0);
     Tree Sort
     Shell Sort
     Cube Sort
+    Bitonic Sort
+    Polyphase Sort
+    Tape Sort
     Fuzzy Sort
     Introsort
+    External Sorting
 */
 
 /*  

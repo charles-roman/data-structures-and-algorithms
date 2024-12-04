@@ -4,126 +4,162 @@
 
 int main (int argc, char* argv[]) {
 
-    std::vector<int> vec = {2, 4, 1, 3, 5, 1};
-
-    /*
-    std::vector<int> vec2 = vec;
+    /* INSERTION SORT TEST */
+    //*---------------------------------------------------------------------------------
+    std::vector<int> vec_insertion = {2, 4, -1, 3, -4, 0, -2, 5, 0, 1, -3, -5};
 
     std::cout << "INSERTION SORT" << std::endl;
     std::cout << "--------------------------" << std::endl;
     std::cout << "Original Array:" << std::endl;
-    utils::print(vec2);
+    utils::print(vec_insertion);
 
-    cra::insertion_sort(vec2);
+    cra::insertion_sort(vec_insertion);
 
     std::cout << "Sorted Array (Ascending):" << std::endl;
-    utils::print(vec2);
+    utils::print(vec_insertion);
 
-    cra::insertion_sort(vec2, utils::DescendingOrder);
+    cra::insertion_sort(vec_insertion, std::greater<int>());
 
     std::cout << "Sorted Array (Descending):" << std::endl;
-    utils::print(vec2);
+    utils::print(vec_insertion);
     std::cout << "--------------------------" << std::endl;
-    */
+    //*/
 
-    /*
-    std::vector<int> vec2 = vec;
+    /* SELECTION SORT TEST */
+    //*---------------------------------------------------------------------------------
+    std::vector<int> vec_selection = {2, 4, -1, 3, -4, 0, -2, 5, 0, 1, -3, -5};
 
     std::cout << "SELECTION SORT" << std::endl;
     std::cout << "--------------------------" << std::endl;
     std::cout << "Original Array:" << std::endl;
-    utils::print(vec2);
+    utils::print(vec_selection);
 
-    cra::selection_sort(vec2);
+    cra::selection_sort(vec_selection);
 
     std::cout << "Sorted Array (Ascending):" << std::endl;
-    utils::print(vec2);
+    utils::print(vec_selection);
 
-    cra::selection_sort(vec2, utils::DescendingOrder);
+    cra::selection_sort(vec_selection, std::greater<int>());
 
     std::cout << "Sorted Array (Descending):" << std::endl;
-    utils::print(vec2);
-
+    utils::print(vec_selection);
     std::cout << "--------------------------" << std::endl;
-    */
+    //*/
 
-    /*
-    std::vector<int> vec2 = vec;
-    
-    std::cout << "MERGE SORT" << std::endl;
-    std::cout << "--------------------------" << std::endl;
-    std::cout << "Original Array:" << std::endl;
-    utils::print(vec2);
-
-    cra::merge_sort(vec2.begin(), vec2.end());
-
-    std::cout << "Sorted Array (Ascending):" << std::endl;
-    utils::print(vec2);
-    std::cout << "--------------------------" << std::endl;
-    */
-
-    /*
-    std::vector<int> vec2 = vec;
+    /* BUBBLE SORT TEST */
+    //*---------------------------------------------------------------------------------
+    std::vector<int> vec_bubble = {2, 4, -1, 3, -4, 0, -2, 5, 0, 1, -3, -5};
     
     std::cout << "BUBBLE SORT" << std::endl;
     std::cout << "--------------------------" << std::endl;
     std::cout << "Original Array:" << std::endl;
-    utils::print(vec2);
+    utils::print(vec_bubble);
 
-    cra::bubble_sort(vec2);
+    cra::bubble_sort(vec_bubble);
 
     std::cout << "Sorted Array (Ascending):" << std::endl;
-    utils::print(vec2);
+    utils::print(vec_bubble);
 
-    cra::bubble_sort(vec2, utils::DescendingOrder);
+    cra::bubble_sort(vec_bubble, std::greater<int>());
 
     std::cout << "Sorted Array (Descending):" << std::endl;
-    utils::print(vec2);
-
+    utils::print(vec_bubble);
     std::cout << "--------------------------" << std::endl;
-    */
+    //*/
 
-    /*
-    std::vector<int> vec2 = vec;
+    /* MERGE SORT TEST */
+    //*---------------------------------------------------------------------------------
+    std::vector<int> vec_merge = {2, 4, -1, 3, -4, 0, -2, 5, 0, 1, -3, -5};
+    
+    std::cout << "MERGE SORT" << std::endl;
+    std::cout << "--------------------------" << std::endl;
+    std::cout << "Original Array:" << std::endl;
+    utils::print(vec_merge);
+
+    cra::merge_sort(vec_merge.begin(), vec_merge.end() - 1);
+
+    std::cout << "Sorted Array (Ascending):" << std::endl;
+    utils::print(vec_merge);
+
+    cra::merge_sort(vec_merge.begin(), vec_merge.end() - 1, std::greater_equal<int>());
+
+    std::cout << "Sorted Array (Descending):" << std::endl;
+    utils::print(vec_merge);
+    std::cout << "--------------------------" << std::endl;
+    //*/
+
+    /* HEAP SORT TEST */
+    //*---------------------------------------------------------------------------------
+    std::vector<int> vec_heap = {2, 4, -1, 3, -4, 0, -2, 5, 0, 1, -3, -5};
     
     std::cout << "HEAP SORT" << std::endl;
     std::cout << "--------------------------" << std::endl;
     std::cout << "Original Array:" << std::endl;
-    utils::print(vec2);
+    utils::print(vec_heap);
 
-    cra::heap_sort(vec2);
+    cra::heap_sort(vec_heap);
 
     std::cout << "Sorted Array (Ascending):" << std::endl;
-    utils::print(vec2);
-    std::cout << "--------------------------" << std::endl;
-    */
+    utils::print(vec_heap);
 
-    /*
-    std::vector<int> vec2 = vec;
+    cra::heap_sort(vec_heap, std::greater<int>());
+
+    std::cout << "Sorted Array (Descending):" << std::endl;
+    utils::print(vec_heap);
+    std::cout << "--------------------------" << std::endl;
+    //*/
+    
+
+    /* QUICK SORT TEST */
+    //*---------------------------------------------------------------------------------
+    std::vector<int> vec_quick = {2, 4, -1, 3, -4, 0, -2, 5, 0, 1, -3, -5};
     
     std::cout << "QUICK SORT" << std::endl;
     std::cout << "--------------------------" << std::endl;
     std::cout << "Original Array:" << std::endl;
-    utils::print(vec2);
+    utils::print(vec_quick);
 
-    cra::quick_sort(vec2.begin(), vec2.end());
+    cra::quick_sort(vec_quick.begin(), vec_quick.end());
 
     std::cout << "Sorted Array (Ascending):" << std::endl;
-    utils::print(vec2);
-    std::cout << "--------------------------" << std::endl;
-    */
+    utils::print(vec_quick);
 
-    std::vector<unsigned int> vec2 = {2, 4, 1, 3, 5, 1, 3, 3, 3};
+    cra::quick_sort(vec_quick.begin(), vec_quick.end(), std::greater_equal<int>());
+
+    std::cout << "Sorted Array (Descending):" << std::endl;
+    utils::print(vec_quick);
+    std::cout << "--------------------------" << std::endl;
+    //*/
+
+    /* COUNTING SORT TEST */
+    //*---------------------------------------------------------------------------------
+    std::vector<unsigned int> vec_count = {2, 4, 1, 3, 5, 1, 3, 3, 3, 6};
     
     std::cout << "COUNTING SORT" << std::endl;
     std::cout << "--------------------------" << std::endl;
     std::cout << "Original Array:" << std::endl;
-    utils::print(vec2);
+    utils::print(vec_count);
 
-    cra::counting_sort(vec2);
+    cra::counting_sort(vec_count);
 
     std::cout << "Sorted Array (Ascending):" << std::endl;
-    utils::print(vec2);
+    utils::print(vec_count);
     std::cout << "--------------------------" << std::endl;
+    //*/
+    
+    /* RADIX SORT TEST */
+    //*---------------------------------------------------------------------------------
+    std::vector<unsigned int> vec_radix = {222, 440, 101, 336, 593, 10, 3, 30, 30, 30};
+    
+    std::cout << "RADIX SORT" << std::endl;
+    std::cout << "--------------------------" << std::endl;
+    std::cout << "Original Array:" << std::endl;
+    utils::print(vec_radix);
 
+    cra::radix_sort(vec_radix);
+
+    std::cout << "Sorted Array (Ascending):" << std::endl;
+    utils::print(vec_radix);
+    std::cout << "--------------------------" << std::endl;
+    //*/
 }
