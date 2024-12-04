@@ -49,8 +49,9 @@
         
         Ptr vs Ref
             both are similar with similar computational efficiency
-            generally passing by ref is more straightforward and preferred
-            however passing by ptr can be useful in situations where it is useful to pass a NULL arg
+            generally passing by ref is more straightforward and preferred (syntactically elegant)
+            passing by ptr can be useful in situations where it is useful to pass a NULL arg
+            passing by ref is required in situations where overloading is utilized
     */
 
     // Returning Values

@@ -34,7 +34,8 @@
                 type my_function(type param);	        // declare member function
 
                 type my_variable;                       // declare data member (class attribute)
-                type *my_data;
+                mutable type my_value;                  // can be modified even in case of const object
+                type *my_data;                          // dynamically allocated; makes resource transfers non-trivial
 
             protected:				                    // access specifier (scope is within class and subclasses) 
 
@@ -100,7 +101,7 @@
             destructor should be defined to free that memory
         */
 
-        MyClass::~MyClass() {   // define destructor (compiler creates implicit definition if no explicit definition)
+        MyClass::~MyClass() {   // destructor (compiler creates implicit definition if no explicit definition)
             // destructor code 
         }
 
@@ -121,7 +122,7 @@
                 myObj.my_data = nullptr;
             }
             return *this;
-        }
+        }                                                           
 
         type MyClass::operator[](type param) { }                    // other operators (ex. w/ [])
 
@@ -132,12 +133,29 @@
 
     /*
         Compiler creates implicit definitions of: 
-            Default Constructor, Copy Constructor, Move Constructor, Assignment Operator, Destructor
-            if not defined explicitly
+            Default Constructor
+            Copy Constructor
+            Move Constructor
+            Copy Assignment Operator
+            Move Assignment Operator
+            Destructor
+                                    (if not defined explicitly)
+            
+            *Defining any copy/move constructor or operator
+            will cause the compiler to not implictly define
+            any of the other 3
+                            
     */
 
+        // Special member function modifiers
+        =default;   // explicitly defaulted function (requests compiler to generate default version)
+        =delete;    // explicitly deleted function (prevents compiler from generating implicit defs)
+        noexcept    // specifies that a function does not throw exceptions (useful for optimization)
+        explicit    // prevents implicit conversions and copy-initialization for constructors (and conversion operators)
+                    // gold rule: use for all constructors which can be called with 1 arg provided
+
     // Defining Member Functions (in .cpp file)
-        type MyClass::getValue() {			        // accessor function 
+        type MyClass::getValue() const {			// accessor function 
             return my_variable; 
         } 
 
