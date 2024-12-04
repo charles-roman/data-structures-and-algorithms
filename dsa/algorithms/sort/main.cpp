@@ -11,17 +11,17 @@ int main (int argc, char* argv[]) {
     std::cout << "INSERTION SORT" << std::endl;
     std::cout << "--------------------------" << std::endl;
     std::cout << "Original Array:" << std::endl;
-    utils::print(vec_insertion);
+    utils::print_container(vec_insertion);
 
     cra::insertion_sort(vec_insertion);
 
     std::cout << "Sorted Array (Ascending):" << std::endl;
-    utils::print(vec_insertion);
+    utils::print_container(vec_insertion);
 
     cra::insertion_sort(vec_insertion, std::greater<int>());
 
     std::cout << "Sorted Array (Descending):" << std::endl;
-    utils::print(vec_insertion);
+    utils::print_container(vec_insertion);
     std::cout << "--------------------------" << std::endl;
     //*/
 
@@ -32,17 +32,17 @@ int main (int argc, char* argv[]) {
     std::cout << "SELECTION SORT" << std::endl;
     std::cout << "--------------------------" << std::endl;
     std::cout << "Original Array:" << std::endl;
-    utils::print(vec_selection);
+    utils::print_container(vec_selection);
 
     cra::selection_sort(vec_selection);
 
     std::cout << "Sorted Array (Ascending):" << std::endl;
-    utils::print(vec_selection);
+    utils::print_container(vec_selection);
 
     cra::selection_sort(vec_selection, std::greater<int>());
 
     std::cout << "Sorted Array (Descending):" << std::endl;
-    utils::print(vec_selection);
+    utils::print_container(vec_selection);
     std::cout << "--------------------------" << std::endl;
     //*/
 
@@ -53,17 +53,17 @@ int main (int argc, char* argv[]) {
     std::cout << "BUBBLE SORT" << std::endl;
     std::cout << "--------------------------" << std::endl;
     std::cout << "Original Array:" << std::endl;
-    utils::print(vec_bubble);
+    utils::print_container(vec_bubble);
 
     cra::bubble_sort(vec_bubble);
 
     std::cout << "Sorted Array (Ascending):" << std::endl;
-    utils::print(vec_bubble);
+    utils::print_container(vec_bubble);
 
     cra::bubble_sort(vec_bubble, std::greater<int>());
 
     std::cout << "Sorted Array (Descending):" << std::endl;
-    utils::print(vec_bubble);
+    utils::print_container(vec_bubble);
     std::cout << "--------------------------" << std::endl;
     //*/
 
@@ -74,17 +74,17 @@ int main (int argc, char* argv[]) {
     std::cout << "MERGE SORT" << std::endl;
     std::cout << "--------------------------" << std::endl;
     std::cout << "Original Array:" << std::endl;
-    utils::print(vec_merge);
+    utils::print_container(vec_merge);
 
     cra::merge_sort(vec_merge.begin(), vec_merge.end() - 1);
 
     std::cout << "Sorted Array (Ascending):" << std::endl;
-    utils::print(vec_merge);
+    utils::print_container(vec_merge);
 
     cra::merge_sort(vec_merge.begin(), vec_merge.end() - 1, std::greater_equal<int>());
 
     std::cout << "Sorted Array (Descending):" << std::endl;
-    utils::print(vec_merge);
+    utils::print_container(vec_merge);
     std::cout << "--------------------------" << std::endl;
     //*/
 
@@ -95,17 +95,17 @@ int main (int argc, char* argv[]) {
     std::cout << "HEAP SORT" << std::endl;
     std::cout << "--------------------------" << std::endl;
     std::cout << "Original Array:" << std::endl;
-    utils::print(vec_heap);
+    utils::print_container(vec_heap);
 
     cra::heap_sort(vec_heap);
 
     std::cout << "Sorted Array (Ascending):" << std::endl;
-    utils::print(vec_heap);
+    utils::print_container(vec_heap);
 
     cra::heap_sort(vec_heap, std::greater<int>());
 
     std::cout << "Sorted Array (Descending):" << std::endl;
-    utils::print(vec_heap);
+    utils::print_container(vec_heap);
     std::cout << "--------------------------" << std::endl;
     //*/
     
@@ -117,17 +117,17 @@ int main (int argc, char* argv[]) {
     std::cout << "QUICK SORT" << std::endl;
     std::cout << "--------------------------" << std::endl;
     std::cout << "Original Array:" << std::endl;
-    utils::print(vec_quick);
+    utils::print_container(vec_quick);
 
     cra::quick_sort(vec_quick.begin(), vec_quick.end());
 
     std::cout << "Sorted Array (Ascending):" << std::endl;
-    utils::print(vec_quick);
+    utils::print_container(vec_quick);
 
     cra::quick_sort(vec_quick.begin(), vec_quick.end(), std::greater_equal<int>());
 
     std::cout << "Sorted Array (Descending):" << std::endl;
-    utils::print(vec_quick);
+    utils::print_container(vec_quick);
     std::cout << "--------------------------" << std::endl;
     //*/
 
@@ -138,12 +138,12 @@ int main (int argc, char* argv[]) {
     std::cout << "COUNTING SORT" << std::endl;
     std::cout << "--------------------------" << std::endl;
     std::cout << "Original Array:" << std::endl;
-    utils::print(vec_count);
+    utils::print_container(vec_count);
 
     cra::counting_sort(vec_count);
 
     std::cout << "Sorted Array (Ascending):" << std::endl;
-    utils::print(vec_count);
+    utils::print_container(vec_count);
     std::cout << "--------------------------" << std::endl;
     //*/
     
@@ -154,12 +154,14 @@ int main (int argc, char* argv[]) {
     std::cout << "RADIX SORT" << std::endl;
     std::cout << "--------------------------" << std::endl;
     std::cout << "Original Array:" << std::endl;
-    utils::print(vec_radix);
+    utils::print_container(vec_radix);
 
     cra::radix_sort(vec_radix);
 
     std::cout << "Sorted Array (Ascending):" << std::endl;
-    utils::print(vec_radix);
+    utils::print_container(vec_radix);
     std::cout << "--------------------------" << std::endl;
     //*/
+
+    exit(EXIT_SUCCESS);
 }

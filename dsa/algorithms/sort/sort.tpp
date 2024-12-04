@@ -25,8 +25,8 @@ void insertion_sort(std::vector<T> &vec, Compare comp) {
 // Selection Sort --------------------------------------------------------------------------
 template <CopyableAndTotallyOrdered T, typename Compare>
 void selection_sort(std::vector<T> &vec, Compare comp) {
-    //if (utils::is_sorted(vec, comp))                                                          // fix utils after rebase
-        //return;
+    if (utils::is_sorted(vec.begin(), vec.end(), comp))                                                      
+        return;
 
     for (size_t i{0}; i < (vec.size() - 1); ++i) {
         size_t key_index = i;
