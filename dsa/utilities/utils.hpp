@@ -22,52 +22,73 @@ enum ErrorType {
 void throw_error(const std::string &func, const int err);
 
 // SORTING UTILITIES -----------------------------------------------------------------------
-enum OrderSpec {
-    AscendingOrder = 0,
-    DescendingOrder
-};
 
-// Check if array is sorted
-template <typename T>
-bool is_sorted(std::vector<T> &vec, const int order = utils::AscendingOrder) {
-    if (order == utils::AscendingOrder) {
-        for (auto it = vec.begin(); it != (vec.end() - 1); ++it) {
-            if (*it > *(it + 1))
-                return false;
-        }
-    } else if (order == utils::DescendingOrder) {
-        for (auto it = vec.begin(); it != (vec.end() - 1); ++it) {
-            if (*it < *(it + 1))
-                return false;
-        }
+// Check if container is sorted
+template <typename ForwardIt, typename Compare = std::less<std::iter_value_t<ForwardIt>>>
+requires std::totally_ordered<std::iter_value_t<ForwardIt>>
+bool is_sorted(ForwardIt begin, ForwardIt end, Compare comp = Compare()) {
+    for (auto it = begin; it != std::prev(end); ++it) {
+        if (comp(*std::next(it), *it))
+            return false;
     }
     return true;
 }
 
 // I/O UTILITIES ---------------------------------------------------------------------------
+template <typename ForwardIt>
+void print_contents(ForwardIt begin, ForwardIt end) {
+    if (begin == end)
+        return;
+
+    for (auto it = begin; it != end; ++it) {
+        std::cout << *it << " ";
+    }
+    std::cout << std::endl;
+}
+
+/*
+    if (key:value associative container)
+        std::cout << "{" << it->first << ": " << it->second << "} ";
+*/
+
 template <typename Container>
-void print(const Container &cont) {
+void print_container(const Container& container) {
+    if (container.empty()) {
+        std::cout << "Container is empty, nothing to print" << std::endl;
+        return;
+    }
+
+    for (const auto& element : container) {
+        std::cout << element << " ";
+    }
+    std::cout << std::endl;
+}
+
+/*
+    if (key:value associative container)
+        for (const auto& pair : container) {
+            std::cout << "{" << pair.first << ": " << pair.second << "} ";
+        }
+*/
+
+/*
+template <typename Container>
+void print_container(const Container &cont) {
     if (cont.empty()) {
         std::cout << "Container is empty, nothing to print" << std::endl;
         return;
     }
 
-    // This adds support for mapped containers
-    /*
-    if (container is unordered associative container) {
+    if (false //container is unordered associative container) {
         std::copy(cont.begin(), cont.end(), 
-                std::ostream_iterator<typename container::mapped_type>(std::cout, " "));
+                std::ostream_iterator<typename Container::mapped_type>(std::cout, " "));
     } else {
         std::copy(cont.begin(), cont.end(), 
-                std::ostream_iterator<typename container::value_type>(std::cout, " "));
+                std::ostream_iterator<typename Container::value_type>(std::cout, " "));
     }
-    */
-
-    std::copy(cont.begin(), cont.end(),
-              std::ostream_iterator<typename Container::value_type>(std::cout, " "));
-
     std::cout << std::endl;
 }
+*/
     
 }   // namespace utils (utilities [library])
 
