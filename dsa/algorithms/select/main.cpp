@@ -1,7 +1,6 @@
 #include <vector>
 #include "select.hpp"
 
-
 int main (int argc, char* argv[]) {
 
     /* MIN ELEMENT TEST */

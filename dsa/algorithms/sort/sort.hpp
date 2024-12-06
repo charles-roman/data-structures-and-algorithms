@@ -3,7 +3,7 @@
 
 #include <vector>
 #include <concepts>
-#include "../../utilities/utils.hpp"
+#include "../../utils/utils.hpp"
 
 namespace cra {
 
