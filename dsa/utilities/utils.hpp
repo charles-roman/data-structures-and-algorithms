@@ -6,10 +6,11 @@
 #include <iterator>
 #include <vector>
 #include <algorithm>
+#include <random>
 
 namespace utils {
 
-// ERROR HANDLING -------------------------------------------------------------------------
+// ERROR HANDLING --------------------------------------------------------------------------
 enum ErrorType {
     MallocError = 0,
     RemoveFromEmptyError,
@@ -22,7 +23,6 @@ enum ErrorType {
 void throw_error(const std::string &func, const int err);
 
 // SORTING UTILITIES -----------------------------------------------------------------------
-
 // Check if container is sorted
 template <typename ForwardIt, typename Compare = std::less<std::iter_value_t<ForwardIt>>>
 requires std::totally_ordered<std::iter_value_t<ForwardIt>>
@@ -89,6 +89,38 @@ void print_container(const Container &cont) {
     std::cout << std::endl;
 }
 */
+
+// MISC UTILITIES --------------------------------------------------------------------------
+template <typename T>
+requires std::integral<T>
+bool is_odd(const T num) {
+    return (num % 2) != 0;
+}
+
+template <typename T>
+requires std::integral<T>
+bool is_even(const T num) {
+    return (num % 2) == 0;
+}
+
+template <typename T>
+requires std::integral<T>
+T random_int(const T low, const T high) {
+    // Create a random device and use it to seed the generator
+    std::random_device rd;
+    std::mt19937 gen(rd());
+
+    // Create a uniform integer distribution for range [low, high]
+    std::uniform_int_distribution<> dis(low, high);
+
+    return dis(gen);
+}
+
+template <typename T>
+requires std::totally_ordered<T>
+T median_of_3(T a, T b, T c) {
+    return (b > a) == (a > c) ? a : (b > a) != (b > c) ? b : c;
+}
     
 }   // namespace utils (utilities [library])
 
