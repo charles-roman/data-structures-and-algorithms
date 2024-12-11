@@ -20,7 +20,17 @@ enum ErrorType {
     SizeOverflowError
 };
 
-void throw_error(const std::string &func, const int err);
+enum ErrorMsg {
+    BadAlloc = 0,
+    RemoveFromEmpty,
+    ReadFromEmpty,
+    OutOfRange,
+    Overflow
+};
+
+void throw_error(const std::string &func, const int err);   // deprecating use
+
+std::string err_msg(const std::string &func, ErrorMsg msg);
 
 // SORTING UTILITIES -----------------------------------------------------------------------
 // Check if container is sorted
