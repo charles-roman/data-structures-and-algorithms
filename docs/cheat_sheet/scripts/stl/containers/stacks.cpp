@@ -15,9 +15,8 @@
 
 std::stack<type> my_stack;				        // declare stack (as deque)
 std::stack<type, std::vector<type>> my_stack;   // declare stack (as vector)
-std::stack<type, std::list<type>> my_stack;     // declare stack (as list)
-                                                // NOTE: type must be same!
-std::stack<type> my_stack2 = my_stack;          // copy stack
+std::stack<type> my_stack2(my_stack);           // initialize stack (using ctor)                                  
+std::stack<type> my_stack2 = my_stack;          // initialize stack (using optor)
 
 // Member Functions:
     // Capacity
