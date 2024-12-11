@@ -9,17 +9,28 @@ namespace crs {
 template <class T>
 class DArray {
 
-    static const int sGrowthFactor{2};
+    static const unsigned int sGrowthFactor{2};
 
     public:
-        // Constructors
+        // Default Constructor
         DArray() = default;
-        explicit DArray(int size);
+        // Parameterized Constructor
+        explicit DArray(size_t size); 
 
-        // ~DArray() = default;
+        // Copy Constructor (deep copy)
+        DArray(const DArray& dArr);                     
+        // Move Constructor
+        DArray(DArray&& dArr) noexcept;                          
+
+        // Destructor
+        // ~DArray() = default;         // auto handled by RAII
         
-        // Operators
-        T& operator[](int index);
+        // Copy Operator (deep copy)
+        DArray& operator=(const DArray& dArr);
+        // Move Operator
+        DArray& operator=(DArray&& dArr) noexcept;   
+
+        T& operator[](size_t index);
 
         // Return number of elements in array
         size_t size() const;                            // O(1)
@@ -27,16 +38,18 @@ class DArray {
         size_t capacity() const;                        // O(1)
         // Check if array is empty
         bool empty() const;                             // O(1)
+        // Clear contents of array
+        void clear();                                   // O(1)
         // Return value at specified index
-        T& at(int index) const;                         // O(1)
+        T& at(size_t index) const;                      // O(1)
         // Add element to back of array
         void push_back(const T&);                       // O(n), O(1) if array not full
         // Remove element from back of array
         void pop_back();                                // O(1)
         // Insert element at specified index
-        void insert(int index, const T&);               // O(n), O(1) if inserting at end (and array not full)
+        void insert(size_t index, const T&);            // O(n), O(1) if inserting at end (and array not full)
         // Erase element at specified index
-        void erase(int index);                          // O(n), O(1) if erasing at end
+        void erase(size_t index);                       // O(n), O(1) if erasing at end
         // Reduces capacity to equal size of array
         void shrink_to_fit();                           // O(n)
         // Print elements in array

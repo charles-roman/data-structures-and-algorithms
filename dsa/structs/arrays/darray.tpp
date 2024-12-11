@@ -5,19 +5,54 @@
 namespace crs {
 
 template <typename T>
-DArray<T>::DArray(int size) {
-    if (size < 0)
-        throw_error(__PRETTY_FUNCTION__, utils::SizeDeclarationError);
-
-    mSize = size; 
-    mCapacity = size;
-    std::unique_ptr<T[]> pArr (new(std::nothrow) T[size]{}); // better to use std::make_unique, but wanted to utilize std::nothrow
-    if (pArr == nullptr) 
-        throw_error(__PRETTY_FUNCTION__, utils::MallocError);
+DArray<T>::DArray(size_t size)
+    : mSize(size), mCapacity(size), pArr(std::make_unique<T[]>(mCapacity)) {
+    // could catch std::bad_alloc if desired
 }
 
 template <typename T>
-T& DArray<T>::operator[](int index) {
+DArray<T>::DArray(const DArray& dArr)
+    : mSize(dArr.mSize), mCapacity(dArr.mCapacity), pArr(std::make_unique<T[]>(dArr.mCapacity)) {
+    for(size_t i = 0; i < dArr.mSize; ++i) {
+        pArr[i] = dArr.pArr[i];
+    }
+}
+
+template <typename T>
+DArray<T>::DArray(DArray&& dArr) noexcept
+    : mSize(dArr.mSize), mCapacity(dArr.mCapacity), pArr(std::move(dArr.pArr)) {
+    dArr.mSize = 0;
+    dArr.mCapacity = 0;
+}
+
+template <typename T>
+DArray<T>& DArray<T>::operator=(const DArray& dArr) {
+    if (this != &dArr) {
+        mSize = dArr.mSize;
+        mCapacity = dArr.mCapacity;
+        pArr = std::make_unique<T[]>(dArr.mCapacity);
+        for(size_t i = 0; i < dArr.mSize; ++i) {
+            pArr[i] = dArr.pArr[i];
+        }
+    }
+    return *this;
+}
+
+template <typename T>
+DArray<T>& DArray<T>::operator=(DArray&& dArr) noexcept {
+    if (this != &dArr) {
+        mSize = dArr.mSize;
+        mCapacity = dArr.mCapacity;
+        pArr = std::move(dArr.pArr);
+
+        dArr.mSize = 0;
+        dArr.mCapacity = 0;
+    }
+    return *this;
+}
+
+template <typename T>
+T& DArray<T>::operator[](size_t index) {
     return pArr[index];
 }
 
@@ -37,55 +72,60 @@ bool DArray<T>::empty() const {
 }
 
 template <typename T>
-T& DArray<T>::at(int index) const {
-    if ((index < 0) || (index >= mSize))
-        throw_error(__PRETTY_FUNCTION__, utils::IndexError);
+void DArray<T>::clear() {
+    mSize = 0;
+}
+
+template <typename T>
+T& DArray<T>::at(size_t index) const {
+    if (index >= mSize)
+        throw std::out_of_range(err_msg(__PRETTY_FUNCTION__, utils::OutOfRange));
 
     return pArr[index];
 }
 
 template <typename T>
-void DArray<T>::push_back(const T &rValue) {
+void DArray<T>::push_back(const T &value) {
     if (mSize == mCapacity)
         this->upsize();
 
-    pArr[mSize] = rValue;
+    pArr[mSize] = value;
     ++mSize;
 }
 
 template <typename T>
 void DArray<T>::pop_back() {
     if (this->empty())
-        throw_error(__PRETTY_FUNCTION__, utils::RemoveFromEmptyError);
+        throw std::runtime_error(err_msg(__PRETTY_FUNCTION__, utils::RemoveFromEmpty));
 
     --mSize;
 }
 
 template <typename T>
-void DArray<T>::insert(int index, const T &rValue) {
-    if ((index < 0) || (index > mSize))
-        throw_error(__PRETTY_FUNCTION__, utils::IndexError);
+void DArray<T>::insert(size_t index, const T &value) {
+    if (index > mSize)
+        throw std::out_of_range(err_msg(__PRETTY_FUNCTION__, utils::OutOfRange));
 
     if (mSize == mCapacity)
         this->upsize();
         
     for (size_t i = mSize; i > index; --i) {
-        pArr[i] = pArr[i-1];
+        pArr[i] = pArr[i - 1];
     }
-    pArr[index] = rValue;
+    pArr[index] = value;
     ++mSize;
 }
 
 template <typename T>
-void DArray<T>::erase(int index) {
-    if ((index < 0) || (index >= mSize))
-        throw_error(__PRETTY_FUNCTION__, utils::IndexError);
-
+void DArray<T>::erase(size_t index) {
     if (this->empty())
-        throw_error(__PRETTY_FUNCTION__, utils::RemoveFromEmptyError);
+        throw std::runtime_error(err_msg(__PRETTY_FUNCTION__, utils::RemoveFromEmpty));
+
+    if (index >= mSize)
+        throw std::runtime_error(err_msg(__PRETTY_FUNCTION__, utils::OutOfRange));
 
     for (size_t i = index; i < (mSize - 1); ++i) {
-        pArr[i] = pArr[i+1];
+        pArr[i] = pArr[i + 1];
     }
     --mSize;
 }
@@ -96,12 +136,10 @@ void DArray<T>::shrink_to_fit() {
         return;
     
     mCapacity = mSize;
-    std::unique_ptr<T[]> newArr(new(std::nothrow) T[mCapacity]); // better to use std::make_unique, but wanted to utilize std::nothrow
-    if (newArr == nullptr)
-        throw_error(__PRETTY_FUNCTION__, utils::MallocError);   
+    std::unique_ptr<T[]> newArr = std::make_unique<T[]>(mCapacity); // could catch std::bad_alloc if desired   
 
-    for (size_t i{0}; i < mSize; ++i) {
-        newArr[i] = pArr[i];
+    for (size_t i = 0; i < mSize; ++i) {
+        newArr[i] = std::move(pArr[i]);
     }
     pArr = std::move(newArr);
 }
@@ -113,7 +151,7 @@ void DArray<T>::print() const {
         return;
     }
 
-    for(size_t i{0}; i < mSize; ++i) {
+    for(size_t i = 0; i < mSize; ++i) {
         std::cout << pArr[i] << ", ";
     }
     std::cout << std::endl;
@@ -127,12 +165,10 @@ void DArray<T>::upsize() {
         mCapacity *= sGrowthFactor;
     }
 
-    std::unique_ptr<T[]> newArr(new(std::nothrow) T[mCapacity]); // better to use std::make_unique, but wanted to utilize std::nothrow
-    if (newArr == nullptr)
-        throw_error(__PRETTY_FUNCTION__, utils::MallocError);   
+    std::unique_ptr<T[]> newArr = std::make_unique<T[]>(mCapacity); // could catch std::bad_alloc if desired   
 
-    for (size_t i{0}; i < mSize; ++i) {
-        newArr[i] = pArr[i];
+    for (size_t i = 0; i < mSize; ++i) {
+        newArr[i] = std::move(pArr[i]);
     }
     pArr = std::move(newArr);
 }
