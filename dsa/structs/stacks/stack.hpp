@@ -1,11 +1,11 @@
 #ifndef STACK_HPP
 #define STACK_HPP
 
-#include <vector>
+#include <deque>
 
 namespace crs {
 
-template <class T, class Container = std::vector<T>>
+template <class T, class Container = std::deque<T>>
 class Stack {
 
     public:

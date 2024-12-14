@@ -1,6 +1,6 @@
 // STACKS:
 
-/* Container that stores elements in LIFO order
+/* Data structure that stores elements in LIFO order
 
     Implemented as container adaptor (a class that uses another container class as its underlying container)
     The underlying container class can be vector, deque, or list (default is deque)
@@ -8,7 +8,7 @@
 
     Access -> O(1)
     Insert/Delete -> O(1)
-    Search -> O(n)
+    Search -> N/A
 */  
 
 #include <stack>
@@ -16,7 +16,7 @@
 std::stack<type> my_stack;				        // declare stack (as deque)
 std::stack<type, std::vector<type>> my_stack;   // declare stack (as vector)
 std::stack<type> my_stack2(my_stack);           // initialize stack (using ctor)                                  
-std::stack<type> my_stack2 = my_stack;          // initialize stack (using optor)
+std::stack<type> my_stack2 = my_stack;          // initialize stack (using opr)
 
 // Member Functions:
     // Capacity

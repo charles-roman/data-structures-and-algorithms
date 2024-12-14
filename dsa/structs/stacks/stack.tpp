@@ -46,7 +46,6 @@ void Stack<T, Container>::print() const {
         std::cout << copy.back() << '\n' << '-' << '\n';    // make look like stack
         copy.pop_back();
     }
-    std::cout << std::endl;
 }
 
 }   // namespace crs (c. roman [data] structures [library])

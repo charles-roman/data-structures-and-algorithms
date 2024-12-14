@@ -1,10 +1,10 @@
-#include <cstdlib>
+#include <vector>
 #include <iostream>
 #include "stack.hpp"
 
 int main(int argv, char* argc[]) {
 
-    crs::Stack<int> stk;
+    crs::Stack<int, std::vector<int>> stk;
     
     std::cout << "BEGIN TEST" << std::endl;
 
