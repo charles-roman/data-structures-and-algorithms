@@ -1,6 +1,6 @@
 // QUEUES:
 
-/* Container that stores elements in FIFO order
+/* Data structure that stores elements in FIFO order
 
     Implemented as container adaptor (a class that uses another container class as its underlying container)
     The underlying container class can be deque or list (default is deque)
@@ -8,14 +8,15 @@
 
     Access -> O(1)
     Insert/Delete -> O(1)
-    Search -> O(n)
+    Search -> N/A
 */ 
 
 #include <queue>
 
 std::queue<type> my_queue;	                // declare queue (as deque)
 std::queue<type, std::list<type>> my_queue; // declare queue (as list)
-std::queue<type> my_queue2 = my_queue;      // copy queue
+std::queue<type> my_queue2(my_queue);       // initialize queue (using ctor)
+std::queue<type> my_queue2 = my_queue;      // initialize queue (using opr)
 
 // Member Functions:
     // Capacity

@@ -21,7 +21,7 @@ int main (int argc, char* argv[]) {
     std::cout << "top: " << pq.top() << std::endl;
     std::cout << "printing...\n";
     std::cout << "order of push: ";
-    utils::print(vec);
+    utils::print_container(vec);
     std::cout << "order of queue: ";
     pq.print();
     std::cout << "-----------------------------" << std::endl;

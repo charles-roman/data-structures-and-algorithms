@@ -1,6 +1,6 @@
 // PRIORITY QUEUES:
 
-/* Container adaptor that stores elements in accordance with the rules of a heap
+/* Data structure that stores elements in accordance with the rules of a heap
 
     Implemented as container adaptor (a class that uses another container class as its underlying container)
     The underlying container class can be vector or deque (default is vector)
@@ -16,7 +16,8 @@
 std::priority_queue<type> my_pq;	                                    // declare queue (as vector)
 std::priority_queue<type, std::deque<type>> my_pq;                      // declare queue (as deque)
 std::priority_queue<type, std::deque<type>, std::greater<type>> my_pq;  // declare queue (as deque) with reversed ordering
-std::priority_queue<type> my_pq2 = my_pq;                               // copy queue
+std::priority_queue<type> my_pq2(my_pq);                                // initialize queue (using ctor)
+std::priority_queue<type> my_pq2 = my_pq;                               // initialize queue (using opr)
 
 // Member Functions:
     // Capacity
