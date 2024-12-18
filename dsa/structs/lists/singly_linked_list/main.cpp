@@ -4,8 +4,20 @@
 int main (int argc, char* argv[]) {
     
     crs::SList<int> slist;
+    crs::SList<int> slist2(3, 0);
 
     std::cout << "TEST BEGIN" << std::endl;
+
+    std::cout << "-----------------------------------------" << std::endl;
+    std::cout << "INITIAL SLIST..." << std::endl;
+    std::cout << "slist: ";
+    slist.print();
+    std::cout << "-----------------------------------------" << std::endl;
+
+    std::cout << "INITIAL SLIST2..." << std::endl;
+    std::cout << "slist2: ";
+    slist2.print();
+    std::cout << "-----------------------------------------" << std::endl;
 
     std::cout << "PUSHING FRONT..." << std::endl;
     slist.push_front(0);
@@ -14,7 +26,7 @@ int main (int argc, char* argv[]) {
 
     std::cout << "-----------------------------------------" << std::endl;
     std::cout << "size: " << slist.size() << std::endl;
-    std::cout << "isempty: " << slist.empty() << std::endl;
+    std::cout << "empty: " << slist.empty() << std::endl;
     std::cout << "front: " << slist.front() << std::endl;
     std::cout << "printing... \n";
     slist.print();
@@ -27,7 +39,7 @@ int main (int argc, char* argv[]) {
 
     std::cout << "-----------------------------------------" << std::endl;
     std::cout << "size: " << slist.size() << std::endl;
-    std::cout << "isempty: " << slist.empty() << std::endl;
+    std::cout << "empty: " << slist.empty() << std::endl;
     std::cout << "-----------------------------------------" << std::endl;
 
     std::cout << "PUSHING BACK..." << std::endl;
@@ -37,7 +49,7 @@ int main (int argc, char* argv[]) {
 
     std::cout << "-----------------------------------------" << std::endl;
     std::cout << "size: " << slist.size() << std::endl;
-    std::cout << "isempty: " << slist.empty() << std::endl;
+    std::cout << "empty: " << slist.empty() << std::endl;
     std::cout << "back: " << slist.back() << std::endl;
     std::cout << "printing... \n";
     slist.print();
@@ -50,7 +62,7 @@ int main (int argc, char* argv[]) {
 
     std::cout << "-----------------------------------------" << std::endl;
     std::cout << "size: " << slist.size() << std::endl;
-    std::cout << "isempty: " << slist.empty() << std::endl;
+    std::cout << "empty: " << slist.empty() << std::endl;
     std::cout << "-----------------------------------------" << std::endl;
 
     std::cout << "INSERTING..." << std::endl;
@@ -60,41 +72,52 @@ int main (int argc, char* argv[]) {
     slist.insert_after(2, 8);
 
     std::cout << "-----------------------------------------" << std::endl;
-    std::cout << "value[0]: " << slist.value_at(0) << std::endl;
+    std::cout << "at(0): " << slist.at(0) << std::endl;
     std::cout << "size: " << slist.size() << std::endl;
-    std::cout << "isempty: " << slist.empty() << std::endl;
+    std::cout << "empty: " << slist.empty() << std::endl;
     std::cout << "printing... \n";
     slist.print();
     std::cout << "-----------------------------------------" << std::endl;
 
-    /*
-    std::cout << "COPYING..." << std::endl;
-    slist2 = slist; // MUST CREATE VALID COPY OPERATORS IN CLASS "SList" AND CLASS "Node"
-    std::cout << "-----------------------------------------" << std::endl;
-    std::cout << "printing slist... \n";
-    slist.print();
-    std::cout << "printing slist2... \n";
-    slist2.print();
-    if (slist == slist2) {    // MUST CREATE ==operator in "SList Class"
-        std::cout << "copy success!" << std::endl;
-    } else {
-        std::cout << "copy failure!" << std::endl;
-    }
-    std::cout << "-----------------------------------------" << std::endl;
-    */
-
     std::cout << "ERASING..." << std::endl;
     slist.erase_after(0);
-    slist.erase_after(0);
-    slist.erase_after(0);
-    slist.pop_front();
 
     std::cout << "-----------------------------------------" << std::endl;
     std::cout << "size: " << slist.size() << std::endl;
-    std::cout << "isempty: " << slist.empty() << std::endl;
+    std::cout << "empty: " << slist.empty() << std::endl;
+    std::cout << "printing... \n";
+    slist.print();
+    std::cout << "-----------------------------------------" << std::endl;
+
+    std::cout << "REVERSING..." << std::endl;
+    slist.reverse();
+
+    std::cout << "-----------------------------------------" << std::endl;
+    std::cout << "printing... \n";
+    slist.print();
+    std::cout << "-----------------------------------------" << std::endl;
+
+    std::cout << "COPYING..." << std::endl;
+    crs::SList<int> slist_copy = slist;
+
+    std::cout << "-----------------------------------------" << std::endl;
+    std::cout << "printing slist... \n";
+    slist.print();
+    std::cout << "printing slist_copy... \n";
+    slist_copy.print();
+    std::cout << "-----------------------------------------" << std::endl;
+
+    std::cout << "CLEARING..." << std::endl;
+    slist.clear();
+
+    std::cout << "-----------------------------------------" << std::endl;
+    std::cout << "size: " << slist.size() << std::endl;
+    std::cout << "empty: " << slist.empty() << std::endl;
+    std::cout << "printing... \n";
+    slist.print();
     std::cout << "-----------------------------------------" << std::endl;
 
     std::cout << "TEST COMPLETE" << std::endl;
 
-    return EXIT_SUCCESS;
+    exit(EXIT_SUCCESS);
 }

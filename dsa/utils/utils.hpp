@@ -11,26 +11,17 @@
 namespace utils {
 
 // ERROR HANDLING --------------------------------------------------------------------------
-enum ErrorType {
-    MallocError = 0,
-    RemoveFromEmptyError,
-    ReadFromEmptyError,
-    IndexError,
-    SizeDeclarationError,
-    SizeOverflowError
-};
-
 enum ErrorMsg {
     BadAlloc = 0,
     RemoveFromEmpty,
     ReadFromEmpty,
     OutOfRange,
-    Overflow
+    Overflow,
+    Underflow,
+    Default
 };
 
-void throw_error(const std::string &func, const int err);   // deprecating use
-
-std::string err_msg(const std::string &func, ErrorMsg msg);
+std::string err_msg(const std::string &func, ErrorMsg msg = Default);
 
 // SORTING UTILITIES -----------------------------------------------------------------------
 // Check if container is sorted
