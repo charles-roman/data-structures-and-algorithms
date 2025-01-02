@@ -3,16 +3,18 @@
 /*
 Lists are doubly-linked lists
 
-Supports bi-directional iterators
+Support bi-directional iterators
 
-Supports default ctor, several parameterized ctors,
-copy/move ctors, and copy/move assignment oprs
+Supports default ctor, parameterized ctors, itr ctors,
+copy/move ctors, initializer list ctors, range-based ctors,
+copy/move assignment oprs, and initializer list opr
 
-Access/Modify -> O(n)
-Insert/Delete -> O(1)
-Search -> O(n)
+Access -> O(n)
+Insert -> O(1)
+Delete -> O(1)
+Search -> N/A
 */ 
     
 #include <list>
 
-std::list<type> my_list;
+std::list<value_type, allocator_type=> list;

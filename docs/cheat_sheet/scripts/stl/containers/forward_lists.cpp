@@ -3,22 +3,18 @@
 /* 
 Forward_Lists are singly-linked lists
 
-    Main advantage of using a forward list compared to a standard
-    list is the savings that could be achieved in memory
+Support forward iterators
 
-    Main disadvantage is that it can only be traversed in one direction
-    and is more limited in functionality
+Supports default ctor, parameterized ctors, itr ctors,
+copy/move ctors, initializer list ctors, range-based ctors,
+copy/move assignment oprs, and initializer list opr
 
-Supports forward iterators
-
-Supports default ctor, several parameterized ctors,
-copy/move ctors, and copy/move assignment oprs
-
-Access/Modify -> O(n)
-Insert/Delete -> O(1)
-Search -> O(n)
+Access -> O(n)
+Insert -> O(1)
+Delete -> O(1)
+Search -> N/A
 */
 
 #include <forward_list>
 
-std::forward_list<type> my_flist;
+std::forward_list<value_type, allocator_type=> flist;
