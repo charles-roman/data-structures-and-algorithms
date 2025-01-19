@@ -47,10 +47,16 @@ void print_contents(ForwardIt begin, ForwardIt end) {
     std::cout << std::endl;
 }
 
-/*
-    if (key:value associative container)
+template <typename ForwardIt>
+void print_associative_contents(ForwardIt begin, ForwardIt end) {
+    if (begin == end)
+        return;
+
+    for (auto it = begin; it != end; ++it) {
         std::cout << "{" << it->first << ": " << it->second << "} ";
-*/
+    }
+    std::cout << std::endl;
+}
 
 template <typename Container>
 void print_container(const Container& container) {
@@ -65,12 +71,18 @@ void print_container(const Container& container) {
     std::cout << std::endl;
 }
 
-/*
-    if (key:value associative container)
-        for (const auto& pair : container) {
-            std::cout << "{" << pair.first << ": " << pair.second << "} ";
-        }
-*/
+template <typename Container>
+void print_associative_container(const Container& container) {
+    if (container.empty()) {
+        std::cout << "Container is empty, nothing to print" << std::endl;
+        return;
+    }
+
+    for (const auto& pair : container) {
+        std::cout << "{" << pair.first << ": " << pair.second << "} ";
+    }
+    std::cout << std::endl;
+}
 
 /*
 template <typename Container>
