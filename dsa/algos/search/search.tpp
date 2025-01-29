@@ -6,7 +6,7 @@ namespace cra {
 // linear search
 template <typename T>
 requires std::equality_comparable<T>
-int lsearch(const std::vector<T> &vec, const T val) {
+int linear_search(const std::vector<T>& vec, const T& val) {
     for (size_t i{0}; i < vec.size(); ++i) {
         if (vec[i] == val) 
             return i;
@@ -17,23 +17,18 @@ int lsearch(const std::vector<T> &vec, const T val) {
 // binary search
 template <typename T>
 requires std::equality_comparable<T>
-int bsearch(const std::vector<T> &vec, const T val) {
-    size_t mid;
-    size_t begin = 0;
-    size_t end = vec.size();
-
-    do {
-        mid = (begin + end) / 2;
-        if (val == vec[mid]) {
-            return mid;
-        } else if (val > vec[mid]) {
-            begin = mid;
-        } else if (val < vec[mid]) {
-            end = mid;
+int binary_search(const std::vector<T>& vec, const T& val) {
+    int l = 0, r = vec.size() - 1;
+    while (l <= r) {
+        int m = l + (r - l + 1) / 2;
+        if (vec[m] > val) {
+            r = m - 1;
+        } else if (vec[m] < val) {
+            l = m + 1;
+        } else {
+            return m;
         }
-
-    } while ((mid != 0) && (mid != (vec.size() - 1)));
-        
+    }
     return -1;
 }
 

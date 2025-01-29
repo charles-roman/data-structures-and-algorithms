@@ -6,15 +6,15 @@
 
 namespace cra {
 
-// linear search (O(n))
+// linear search O(n)
 template <typename T>
 requires std::equality_comparable<T>
-int lsearch(const std::vector<T> &vec, const T val);
+int linear_search(const std::vector<T>& vec, const T& val);
 
-// binary search (O(logn))
+// binary search O(lgn)
 template <typename T>
 requires std::equality_comparable<T>
-int bsearch(const std::vector<T> &vec, const T val);
+int binary_search(const std::vector<T>& vec, const T& val);
 
 }   // namespace cra
 
