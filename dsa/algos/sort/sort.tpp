@@ -47,59 +47,59 @@ void bubble_sort(std::vector<T> &vec, Compare comp) {
 }
 
 // Merge Sort ------------------------------------------------------------------------------
-template <typename RandomIt, typename Compare>
-static void merge(RandomIt begin, RandomIt mid, RandomIt end, Compare comp) {
-    // Copy
-    std::vector<std::iter_value_t<RandomIt>> larr(begin, mid + 1);
-    std::vector<std::iter_value_t<RandomIt>> rarr(mid + 1, end + 1);
+template <CopyableAndTotallyOrdered T, typename Compare>
+static void merge(std::vector<T>& vec, size_t begin, size_t mid, size_t end, Compare comp) {
+    size_t l_size = mid - begin + 1;
+    std::vector<T> larr(l_size);
+    for (int i = 0; i < l_size; ++i) {
+        larr[i] = vec[begin + i];
+    }
 
-    // Initialize
-    auto left = larr.begin();
-    auto right = rarr.begin();
-    auto i = begin;
+    size_t r_size = end - mid;
+    std::vector<T> rarr(r_size);
+    for (int j = 0; j < r_size; ++j) {
+        rarr[j] = vec[mid + 1 + j];
+    }
 
-    // Sort
-    while ((left != larr.end()) && (right != rarr.end())) {
-        if (comp(*left, *right)) {
-            *i = std::move(*left);                                              
-            ++left;
+    size_t l = 0, r = 0, k = begin;
+    while (l < l_size && r < r_size) {
+        if (comp(larr[l], rarr[r])) {
+            vec[k] = larr[l];
+            ++l;
         } else {
-            *i = std::move(*right);
-            ++right;
+            vec[k] = rarr[r];
+            ++r;
         }
-        ++i;
+        ++k;
     }
 
-    while (left != larr.end()) {
-        *i = std::move(*left);
-        ++left;
-        ++i;
+    while (l < l_size) {
+        vec[k] = larr[l];
+        ++l, ++k;
     }
 
-    while (right != rarr.end()) {
-        *i = std::move(*right);
-        ++right;
-        ++i;
+    while (r < r_size) {
+        vec[k] = rarr[r];
+        ++r, ++k;
     }
 }
 
-template <ItValCopyableAndTotallyOrdered RandomIt, typename Compare>                 
-void merge_sort(RandomIt begin, RandomIt end, Compare comp) {                      
-    if (begin >= end)
-        return;
+template <CopyableAndTotallyOrdered T, typename Compare>
+void merge_sort(std::vector<T>& vec, size_t begin, size_t end, Compare comp) {
+    if (begin >= end) return;
 
-    RandomIt mid = begin + ((end - begin) / 2);
-    merge_sort(begin, mid, comp);
-    merge_sort((mid + 1), end, comp);
-    merge(begin, mid, end, comp);
+    size_t mid = begin + (end - begin) / 2;
+    merge_sort(vec, begin, mid, comp);
+    merge_sort(vec, mid + 1, end, comp);
+    merge(vec, begin, mid, end, comp);
 }
 
 // Heap Sort -------------------------------------------------------------------------------  
-static size_t left(const size_t i) {
+inline static size_t left(const size_t i) {
     return (2 * i + 1);
 }
 
-static size_t right(const size_t i) {
+inline static size_t right(const size_t i) {
     return (2 * i + 2);
 }
 
@@ -314,6 +314,16 @@ void radix_sort(std::vector<T> &input, T d) {                   // sorts by LSD 
 }
 
 // Bucket Sort -----------------------------------------------------------------------------
+
+// Intro Sort ------------------------------------------------------------------------------ (std::sort)
+
+    // insertion sort
+
+    // heap sort
+
+    // quick sort
+
+    // intro sort
 
 
 }   // cra namespace (c. roman algorithms [library])

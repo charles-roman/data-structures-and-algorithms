@@ -76,12 +76,12 @@ int main (int argc, char* argv[]) {
     std::cout << "Original Array:" << std::endl;
     utils::print_container(vec_merge);
 
-    cra::merge_sort(vec_merge.begin(), vec_merge.end() - 1);
+    cra::merge_sort(vec_merge, 0, vec_merge.size() - 1);
 
     std::cout << "Sorted Array (Ascending):" << std::endl;
     utils::print_container(vec_merge);
 
-    cra::merge_sort(vec_merge.begin(), vec_merge.end() - 1, std::greater_equal<int>());
+    cra::merge_sort(vec_merge, 0, vec_merge.size() - 1, std::greater_equal<int>());
 
     std::cout << "Sorted Array (Descending):" << std::endl;
     utils::print_container(vec_merge);

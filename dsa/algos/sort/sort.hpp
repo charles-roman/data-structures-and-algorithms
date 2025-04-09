@@ -27,17 +27,16 @@ template <CopyableAndTotallyOrdered T, typename Compare = std::less<T>>
 void bubble_sort(std::vector<T> &vec, Compare comp = Compare());
 
 // Merge Sort ---------------------------------------------------------------------------- [O(nlogn)]
-template <typename RandomIt, typename Compare>
-static void merge(RandomIt begin, RandomIt mid, RandomIt end, Compare comp);
+template <CopyableAndTotallyOrdered T, typename Compare>
+static void merge(std::vector<T>& vec, size_t begin, size_t mid, size_t end, Compare comp);
 
-template <ItValCopyableAndTotallyOrdered RandomIt, 
-            typename Compare = std::less_equal<std::iter_value_t<RandomIt>>>
-void merge_sort(RandomIt begin, RandomIt end, Compare comp = Compare());      // end iterator must point to last element 
+template <CopyableAndTotallyOrdered T, typename Compare = std::less_equal<T>>
+void merge_sort(std::vector<T>& vec, size_t begin, size_t end, Compare comp = Compare());
 
 // Heap Sort ----------------------------------------------------------------------------- [O(nlogn)]
-static size_t left(const size_t i);
+inline static size_t left(const size_t i);
 
-static size_t right(const size_t i);
+inline static size_t right(const size_t i);
 
 template <typename T, typename Compare>
 static void heapify(std::vector<T> &vec, const size_t size, const size_t i, Compare comp);
@@ -80,7 +79,9 @@ template <typename T>
 requires std::unsigned_integral<T>
 void radix_sort(std::vector<T> &input, T d = 0);
 
-// Bucket Sort --------------------------------------------------------------------------- [O()]
+// Bucket Sort --------------------------------------------------------------------------- [O(n)]
+
+// Introsort ----------------------------------------------------------------------------- [O(nlogn)]
 
 // More Sorting
 /* 
@@ -92,7 +93,6 @@ void radix_sort(std::vector<T> &input, T d = 0);
     Polyphase Sort
     Tape Sort
     Fuzzy Sort
-    Introsort
     External Sorting
 */
 
