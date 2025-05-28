@@ -1,13 +1,10 @@
-data-structures-and-algorithms
-==============================
+# data-structures-and-algorithms
 
-Overview
---------
+## Summary
 This repo contains an overview of many fundamental topics within data structures and algorithms along with practical examples in C++
-- [data structures](structs/README.md)
-- [algorithms](algos/README.md)
+- [Data Structures Cheat Sheet](structs/README.md)
+- [Algorithms Cheat Sheet](algos/README.md)
 
-Resources
----------
+## Resources
 - [Introduction to Algorithms, 4th Ed](https://www.amazon.com/Introduction-Algorithms-fourth-Thomas-Cormen/dp/026204630X)
 
