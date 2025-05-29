@@ -154,6 +154,9 @@
 - There is a **frequent need to insert/delete** at various points in the data structure
 
 #### Examples:
+- Hash Table Chaining
+- Graph Adjacency Representations
+- Navigable data structures (i.e. for music playlists, image viewers, or browsing history)
 
 [back to top](#data-structures-cheat-sheet)
 
