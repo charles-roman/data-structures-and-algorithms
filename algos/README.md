@@ -77,3 +77,7 @@
   - All-Pairs Shortest Paths
     - Floyd-Warshall
     - Johnson
+      
+- Pattern (String) Matching
+- NP Completeness
+- Approximation Algorithms
